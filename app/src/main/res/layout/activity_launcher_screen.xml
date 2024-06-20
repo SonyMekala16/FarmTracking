@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:gravity="center"
     android:background="@drawable/fthomescreen"
-    tools:context=".LauncherScreen">
+    >
 
+    <TextView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
 
-    <!-- Optional: Add a ProgressBar -->
+        android:text="FarmTrack"
+        android:fontFamily="@font/textbold"
+        android:textColor="@color/white"
+        android:textSize="40sp"/>
+
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -19,27 +30,9 @@
         android:layout_alignEnd="@+id/titleText"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="110dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="113dp"
         android:layout_marginBottom="168dp" />
 
-    <TextView
 
-        android:id="@+id/titleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="377dp"
-        android:layout_marginEnd="57dp"
-        android:layout_marginBottom="275dp"
-        android:fontFamily="@font/textbold"
-        android:text="FARMTRACK"
-        android:textColor="@color/white"
-        android:textSize="48sp" />
-
-</RelativeLayout>
+</LinearLayout>

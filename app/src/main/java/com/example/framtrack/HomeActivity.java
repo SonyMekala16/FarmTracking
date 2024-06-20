@@ -37,6 +37,10 @@ public class HomeActivity extends AppCompatActivity {
                     openFragment(new HomeFragment());
                     return true;
                 }
+                if(itemid==R.id.navigation_maps){
+                    openFragment(new MapsFragment());
+                    return true;
+                }
 
                 return false;
             }
@@ -51,13 +55,7 @@ public class HomeActivity extends AppCompatActivity {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-    public void GetHomeFragment(){
 
-
-
-
-        openFragment(new HomeFragment());
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu,menu);
@@ -70,6 +68,7 @@ public class HomeActivity extends AppCompatActivity {
         if(id==R.id.action_notifications){
             Toast.makeText(this, "notifications", Toast.LENGTH_SHORT).show();
         }
+
 
         return true;
     }
