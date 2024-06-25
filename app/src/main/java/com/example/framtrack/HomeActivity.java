@@ -41,6 +41,10 @@ public class HomeActivity extends AppCompatActivity {
                     openFragment(new MapsFragment());
                     return true;
                 }
+                if(itemid==R.id.navigation_account){
+                    openFragment(new UserProfileFragment());
+                    return true;
+                }
 
                 return false;
             }
