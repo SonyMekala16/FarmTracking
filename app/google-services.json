@@ -12,7 +12,10 @@
           "package_name": "com.example.framtrack"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [{
+        "client_id": "973628155469-rcukbjcdncb9451h7ir9m1c4rqadmqve.apps.googleusercontent.com",
+        "client_type": 3
+      }],
       "api_key": [
         {
           "current_key": "AIzaSyBSlwnqlzrIIAEamH1XcOc-NHPQpT1_5_Q"
@@ -24,6 +27,7 @@
         }
       }
     }
+
   ],
   "configuration_version": "1"
 }

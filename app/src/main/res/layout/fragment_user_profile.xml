@@ -1,16 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    tools:context=".UserProfileFragment">
+    android:background="@color/gray">
 
-    <!-- TODO: Update blank fragment layout -->
-    <Button
-        android:id="@+id/btnsignout"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SignOut" />
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="#5CC09F"
+            >
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:id="@+id/iv_profile_pic"
+                android:layout_centerInParent="true"
+                android:background="@drawable/fthomescreen"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_show_welcome"
+                android:hint="Loading..."
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/iv_profile_pic"
+                android:layout_marginTop="5dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textColor="@color/white"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="15dp"
+            android:layout_margin="15dp" 
+            android:background="@color/white">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/iv_icon_profile"
+                android:background="@drawable/ic_person"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_show_name"
+                android:layout_alignStart="@id/iv_icon_profile"
+                android:hint="Loading"
+                android:layout_marginStart="50dp"
+                android:textSize="18sp"/>
 
-</FrameLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/tv_show_name"
+                android:background="@android:color/darker_gray"
+                android:id="@+id/divider_name"/>
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/iv_icon_email"
+                android:background="@drawable/ic_email"
+                android:layout_below="@+id/divider_name"
+                android:layout_marginTop="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_show_email"
+                android:layout_alignStart="@id/iv_icon_email"
+                android:hint="Loading"
+                android:layout_marginStart="50dp"
+                android:layout_below="@id/divider_name"
+                android:layout_marginTop="20dp"
+                android:textSize="18sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/tv_show_email"
+                android:background="@android:color/darker_gray"
+                android:id="@+id/divider_email"/>
+
+            <!---Show Phone Number-->
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/iv_icon_phone"
+                android:background="@drawable/ic_phone"
+                android:layout_below="@+id/divider_email"
+                android:layout_marginTop="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_show_phone"
+                android:layout_alignStart="@id/iv_icon_phone"
+                android:hint="Loading"
+                android:layout_marginStart="50dp"
+                android:layout_below="@id/divider_email"
+                android:layout_marginTop="20dp"
+                android:textSize="18sp"/>
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_centerVertical="true"
+                android:id="@+id/progressbar"
+                android:layout_centerHorizontal="true"
+                android:elevation="10dp"
+                android:visibility="gone"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    </ScrollView>

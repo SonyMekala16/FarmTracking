@@ -6,4 +6,7 @@ public class ReadWriteUserDetails {
         this.name=name;
         this.phone=phone;
     }
+
+    public ReadWriteUserDetails(){};
+
 }

@@ -1,6 +1,7 @@
 package com.example.framtrack;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,13 +18,23 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class Login extends AppCompatActivity {
 
@@ -36,6 +47,10 @@ public class Login extends AppCompatActivity {
     private TextView tvSignUp;
     private TextView tvforgetpassword;
     private FirebaseAuth authProfile;
+    private FirebaseDatabase database;
+    private GoogleSignInClient mgoogleSignInClient;
+
+    int RC_SIGN_IN=20;
     private  static final String TAG="LogInActivity";
 
     @Override
@@ -51,6 +66,25 @@ public class Login extends AppCompatActivity {
         btnTwitter = findViewById(R.id.btnTwitter);
         tvSignUp = findViewById(R.id.tvSignUp);
         tvforgetpassword=findViewById(R.id.forget_pass);
+
+        authProfile =FirebaseAuth.getInstance();
+        database=FirebaseDatabase.getInstance();
+
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mgoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
+
+        btnGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                googleSignIn();
+            }
+        });
+
+
         tvforgetpassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,6 +132,53 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void googleSignIn() {
+        Intent intent=mgoogleSignInClient.getSignInIntent();
+        startActivityForResult(intent,RC_SIGN_IN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==RC_SIGN_IN){
+            Task<GoogleSignInAccount> task=GoogleSignIn.getSignedInAccountFromIntent(data);
+            try{
+              GoogleSignInAccount account=task.getResult(ApiException.class);
+              firebaseAuth(account.getIdToken());
+
+            }catch (Exception e){
+                Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void firebaseAuth(String idToken) {
+
+        AuthCredential credential= GoogleAuthProvider.getCredential(idToken,null);
+        authProfile.signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            FirebaseUser user= authProfile.getCurrentUser();
+
+                            HashMap<String,Object> map=new HashMap<>();
+                            map.put("id",user.getUid());
+                            map.put("name",user.getDisplayName());
+
+                            database.getReference().child("Users").child((user.getUid())).setValue(map);
+
+                            Intent intent=new Intent(Login.this,HomeActivity.class);
+                            startActivity(intent);
+                        }
+                        else {
+                            Toast.makeText(Login.this,"Something went wrong",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     private void loginUser(String email, String password) {
@@ -160,7 +241,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        //create alertdiLOG
+        //create alert dialog
         AlertDialog alertDialog=builder.create();
 
         //show alert dialog

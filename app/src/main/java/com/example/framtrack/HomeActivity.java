@@ -42,7 +42,7 @@ public class HomeActivity extends AppCompatActivity {
                     return true;
                 }
                 if(itemid==R.id.navigation_account){
-                    openFragment(new UserProfileFragment());
+                    openFragment(new ProfileFragment());
                     return true;
                 }
 
