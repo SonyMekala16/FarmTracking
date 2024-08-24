@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,9 +29,13 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileFragment extends Fragment {
 
-    private TextView  textViewFullName, textViewEmail,textViewPhone,textViewSignOut;
+    private TextView  textViewFullName, textViewEmail,textViewPhone,textViewSignOut,editEmailButton;
 
     private String fullname, email, mobile;
+    private Button saveButton;
+    private Button cancelButton;
+    private LinearLayout actionButtonsLayout;
+
 
     private FirebaseAuth authProfile;
 
@@ -44,6 +49,31 @@ public class ProfileFragment extends Fragment {
         textViewEmail = view.findViewById(R.id.tv_showemail);
         textViewPhone = view.findViewById(R.id.tv_showphone);
         textViewSignOut=view.findViewById(R.id.tv_Signout);
+        editEmailButton = view.findViewById(R.id.tv_edit_name);
+        saveButton = view.findViewById(R.id.saveButton);
+        cancelButton = view.findViewById(R.id.cancelButton);
+        actionButtonsLayout = view.findViewById(R.id.actionButtonsLayout);
+
+        editEmailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enableEdit();
+            }
+        });
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveChanges();
+            }
+        });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cancelEdit();
+            }
+        });
 
         textViewSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +96,31 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
+    private void enableEdit() {
+        textViewFullName.setEnabled(true);
+        textViewEmail.setVisibility(View.VISIBLE);
+        actionButtonsLayout.setVisibility(View.VISIBLE);
+    }
+    private void saveChanges() {
+        // Add your logic to save changes here
+        String email = textViewFullName.getText().toString();
+        String password = textViewEmail.getText().toString();
+
+        // Here you can add validation for email and password if necessary
+
+        Toast.makeText(getContext(), "Changes saved", Toast.LENGTH_SHORT).show();
+        textViewFullName.setEnabled(false);
+        textViewEmail.setVisibility(View.GONE);
+        actionButtonsLayout.setVisibility(View.GONE);
+    }
+
+    private void cancelEdit() {
+        // Add your logic to cancel changes here
+        Toast.makeText(getContext(), "Edit cancelled", Toast.LENGTH_SHORT).show();
+        textViewFullName.setEnabled(false);
+        textViewEmail.setVisibility(View.GONE);
+        actionButtonsLayout.setVisibility(View.GONE);
+    }
     private void signout(){
         authProfile=FirebaseAuth.getInstance();
         if(authProfile.getCurrentUser()!=null){

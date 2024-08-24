@@ -47,14 +47,42 @@
         android:textAlignment="viewEnd"
         android:textColor="@android:color/holo_blue_light"
         />
+
+
+
+
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/actionButtonsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Save changes" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel" />
+    </LinearLayout>
+
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="10dp"
-        android:layout_below="@id/nameLL"
+        android:layout_below="@id/actionButtonsLayout"
         android:background="@android:color/darker_gray"
         android:id="@+id/divider_name"/>
+
     <TextView
         android:id="@+id/tv_email_label"
         android:layout_width="wrap_content"
